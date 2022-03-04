@@ -118,6 +118,7 @@ const FormField: React.FC = () => {
       } else if (intervalID) {
         clearInterval(intervalID);
         IntervalHandler();
+        scroll(0, 0);
         setShowData(true);
       } else {
         IntervalHandler();

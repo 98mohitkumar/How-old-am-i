@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ClockWrapper = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ export const TimeWrapper = styled.div<{ delay: string }>`
   width: 100%;
   transform: translateY(105%);
   opacity: 0;
-  animation: reveal 0.75s cubic-bezier(0.5, 0, 0.175, 1) forwards;
+  animation: reveal 1s cubic-bezier(0.5, 0, 0.175, 1) forwards;
   animation-delay: ${({ delay }) => delay};
 
   @keyframes reveal {

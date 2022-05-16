@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 import {
   Button,
   Form,
   FormWrapper,
-  InputsWrapper,
-} from "../../styles/GlobalComponents";
-import Clock from "../Clock/Clock";
+  InputsWrapper
+} from '../../styles/GlobalComponents';
+import Clock from '../Clock/Clock';
 
 const FormField: React.FC = () => {
   const [years, setYears] = useState(0);
@@ -28,11 +28,20 @@ const FormField: React.FC = () => {
   const today = new Date();
 
   const clearInputs = () => {
-    dateRef.current!.value = "";
-    monthRef.current!.value = "";
-    yearRef.current!.value = "";
-    hourRef.current!.value = "";
-    minRef.current!.value = "";
+    dateRef.current!.value = '';
+    monthRef.current!.value = '';
+    yearRef.current!.value = '';
+    hourRef.current!.value = '';
+    minRef.current!.value = '';
+  };
+
+  const clearStates = () => {
+    setYears(0);
+    setMonths(0);
+    setDays(0);
+    setHours(0);
+    setMins(0);
+    setSecs(0);
   };
 
   const submitHandler = (e: React.FormEvent) => {
@@ -47,10 +56,8 @@ const FormField: React.FC = () => {
 
     const birthDate = new Date(year, month, date, hours, min, 0);
 
-    let Interval: NodeJS.Timer;
-
     const IntervalHandler = () => {
-      Interval = setInterval(() => {
+      const Interval = setInterval(() => {
         const timeDiff = new Date().getTime() - birthDate.getTime();
 
         const yearsFloat = timeDiff / (1000 * 3600 * 24 * 30.4375 * 12);
@@ -117,6 +124,7 @@ const FormField: React.FC = () => {
         return;
       } else if (intervalID) {
         clearInterval(intervalID);
+        clearStates();
         IntervalHandler();
         scroll(0, 0);
         setShowData(true);
@@ -144,27 +152,27 @@ const FormField: React.FC = () => {
       <FormWrapper>
         <Form onSubmit={submitHandler}>
           <div>
-            <label className="label">Date</label>
+            <label className='label'>Date</label>
             <InputsWrapper>
               <input
-                type="number"
-                min="01"
-                max="31"
-                placeholder="Day"
+                type='number'
+                min='01'
+                max='31'
+                placeholder='Day'
                 ref={dateRef}
               />
               <input
-                type="number"
-                min="01"
-                max="12"
-                placeholder="Month"
+                type='number'
+                min='01'
+                max='12'
+                placeholder='Month'
                 ref={monthRef}
               />
               <input
-                type="number"
-                min="1900"
+                type='number'
+                min='1900'
                 max={today.getFullYear()}
-                placeholder="Year"
+                placeholder='Year'
                 ref={yearRef}
               />
             </InputsWrapper>
@@ -174,23 +182,23 @@ const FormField: React.FC = () => {
             <label>Time (optional)</label>
             <InputsWrapper>
               <input
-                type="number"
-                min="00"
-                max="23"
-                placeholder="Hours (24h)"
+                type='number'
+                min='00'
+                max='23'
+                placeholder='Hours (24h)'
                 ref={hourRef}
               />
               <input
-                type="number"
-                min="00"
-                max="59"
-                placeholder="Minutes"
+                type='number'
+                min='00'
+                max='59'
+                placeholder='Minutes'
                 ref={minRef}
               />
             </InputsWrapper>
           </div>
 
-          <Button type="submit" onClick={() => setShowData(false)}>
+          <Button type='submit' onClick={() => setShowData(false)}>
             <span>How old am i ?</span>
           </Button>
         </Form>

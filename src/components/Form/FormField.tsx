@@ -8,12 +8,14 @@ import {
 import Clock from '../Clock/Clock';
 
 const FormField: React.FC = () => {
-  const [years, setYears] = useState(0);
-  const [months, setMonths] = useState(0);
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [mins, setMins] = useState(0);
-  const [secs, setSecs] = useState(0);
+  const [timer, setTimer] = useState({
+    yearsSince: 0,
+    monthsSince: 0,
+    daysSince: 0,
+    hoursSince: 0,
+    minsSince: 0,
+    secsSince: 0
+  });
   const [showData, setShowData] = useState(false);
 
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>();
@@ -36,12 +38,14 @@ const FormField: React.FC = () => {
   };
 
   const clearStates = () => {
-    setYears(0);
-    setMonths(0);
-    setDays(0);
-    setHours(0);
-    setMins(0);
-    setSecs(0);
+    setTimer({
+      yearsSince: 0,
+      monthsSince: 0,
+      daysSince: 0,
+      hoursSince: 0,
+      minsSince: 0,
+      secsSince: 0
+    });
   };
 
   const submitHandler = (e: React.FormEvent) => {
@@ -93,13 +97,14 @@ const FormField: React.FC = () => {
             minsSince) *
             60
         );
-
-        setYears(yearsSince);
-        setMonths(monthsSince);
-        setDays(daysSince);
-        setHours(hoursSince);
-        setMins(minsSince);
-        setSecs(secsSince);
+        setTimer({
+          yearsSince,
+          monthsSince,
+          daysSince,
+          hoursSince,
+          minsSince,
+          secsSince
+        });
       }, 1000);
 
       setIntervalID(Interval);
@@ -139,16 +144,7 @@ const FormField: React.FC = () => {
 
   return (
     <>
-      {showData && (
-        <Clock
-          years={years}
-          months={months}
-          days={days}
-          hours={hours}
-          mins={mins}
-          secs={secs}
-        />
-      )}
+      {showData && <Clock timer={timer} />}
       <FormWrapper>
         <Form onSubmit={submitHandler}>
           <div>
